@@ -1,0 +1,267 @@
+﻿Name - Rohan Patel
+NSID - rsp502
+Student ID- 11247205
+----------------------------------------------------------------------------------------
+Assignment 4 Question 1
+----------------------------------------------------------------------------------------
+Prim’s algorithm has a Greedy approach. It beings with an empty minimum spanning tree. 
+The basic idea behind the algorithm is to maintain two sets of vertices,
+The first set that contains the vertices included in the MST and the other set contains
+vertices that are not included in the MST. At every step, it considers all the edges 
+that connect the two sets, and picks the minimum weight edge from these edges. After 
+picking the edge, it moves the other endpoint of the edge to the set containing MST.
+The modification that needs to be done is The idea of using key values is to pick the
+minimum weight edge from cut. The key values are used only for vertices which are not 
+yet included in MST,the key value for these vertices indicate the minimum weighted edges
+connecting them to the set of vertices included in MST. Using a adjaceny matrix and priority 
+queue implementation results in time complexity of Big-theta(V^2)
+
+----------------------------------------------------------------------------------------
+ALGORITHM
+----------------------------------------------------------------------------------------
+1) Create a set mst_dataSet that keeps track of vertices already included in MST.
+2) Assign a key value to all vertices in the input graph. Initialize all key values 
+   as INFINITE. Assign key value as 0 for the first vertex so that it is picked first.
+3) While mst_dataSet doesn’t include all vertices
+	a) Pick a vertex u which is not there in mst_dataSet and has minimum key value.
+	b) Include u to mst_dataSet.
+	c) Update key value of all adjacent vertices of u. To update the key values, iterate 
+     	   through all adjacent vertices. For every adjacent vertex v, if weight of edge u-v
+	   is less than the previous key value of v, update the key value as weight of u-v
+----------------------------------------------------------------------------------------
+The algorithm when the graph G = (V, E) is represented as an adjacency matrix. 
+Instead of heap structure, we'll use an array to store the key of each node.
+
+-> s is the source vertex
+-> Arr stores all vertices of graph
+-> mst stores the constructed MST
+-> keys is used to pick minimum weight edge in cut 
+
+0. Modified_Prims(G,w,source)
+1. Arr = V[G]
+2. for v in V[G]:
+3. 	keys[v] = infinite/∞
+4. 	mst[v] = false
+5. keys[source]=0 
+6. mst[source]=-1 
+7. while(Arr isempty)
+8.      min_value = scan over Arr and find the vertex with the minimum key value
+9. 	for each v in Arr[min_value]:
+10. 		If v is in Arr and w[min_value,v]<key[v]:
+11.			mst[v] = min_value
+12.			key[v] = w[min_value,v]
+-----------------------------------------------------------------------------------------
+TIME COMPLEXITY
+----------------------------------------------------------------------------------------
+- The for-loop(line 8) takes O(deg[u]). As the statements of the for loop 
+  are executed in constant time.
+- Due to scanning whole array A, line 7 takes O(V) time 
+Therefore, the while-loop on line 6 needs,
+	= Ο(V^2 + E)
+	= Ο(V^2)
+-----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Assignment 4 Question 2 Part A
+----------------------------------------------------------------------------------------
+This is a trivial problem. The minimum weight spanning tree is dependent on the weight of the edges. 
+But in this problem, instead of the edges, the weight is on the vertices.
+So, while calculating the spanning tree of G with minimum total weight,
+Whichever approach or techniques we use, it would'nt matter as we will get the same answer every time 
+The reason for this will be because a minimum weight spanning tree is a subset of the edges of a 
+undirected graph that connects all the vertices together. As the number of vertices in the graph and the tree 
+would be the same and the weight is on the vertices. So no matter which edge you take you need to connect every vertex. 
+This makes the minimum weight spanning tree have the same weight what so ever.
+
+----------------------------------------------------------------------------------------
+ALGORITHM
+----------------------------------------------------------------------------------------
+1) Create a hash table 
+2) Use all the vertex of the graph as a source generate the mst using prims algorithm 
+3) Create a set mst_dataSet that keeps track of vertices already included in MST.
+4) Assign a key value to all vertices in the input graph. Initialize all key values 
+   as INFINITE. Assign key value as 0 for the first vertex so that it is picked first.
+5) While mst_dataSet doesn’t include all vertices
+	a) Pick a vertex u which is not there in mst_dataSet and has minimum key value.
+	b) Include u to mst_dataSet.
+	c) Update key value of all adjacent vertices of u. To update the key values, iterate 
+           through all adjacent vertices. For every adjacent vertex v, if weight of edge u-v 
+           is less than the previous key value of v, update the key value as weight of u-v
+  	d) Store the mst_dataSet in a hashtable as the value attribute and sum as the key attribute 
+6) Iterate through the key values which have the sum and find the smallest value and return the mst associated with that key. 
+----------------------------------------------------------------------------------------
+0. Modified_Prims(G,w) 
+1. for each v in Graph: // Calculates a minimum spanning tree and stores it as a value in a hashtable 
+			   and the key is represented by the sum of the vertex weight  
+2. 	Arr = V[G]
+3. 	for v in V[G]:
+4. 		keys[v] = infinite/∞
+5. 		mst_dataSet[v] = false
+6. 	keys[s]=0 
+7. 	mst[s]=-1 
+8.      sum = 0
+9. 	while(Arr isempty)
+10.      	min_value = scan over Arr and find the vertex with the minimum key value
+11. 		for each v in Arr[min_value]:
+12. 			If v is in Arr and w[min_value,v]<key[v]:
+13. 				sum = sum + weight of vertex v
+14.				mst[v] = min_value
+15.				key[v] = w[min_value,v]
+16.     Insert the mst into the hashtable with sum as the key.
+17. Find the smallest key from the hashtable and return that mst.
+----------------------------------------------------------------------------------------
+TIME COMPLEXITY
+----------------------------------------------------------------------------------------
+- line 10 and 11 takes O(V) time.
+- The while loop on line 9 needs due to line 9 and 10: O(V^2 + E)
+- The final for loop on line 1 needs due to line 9: O(V^3 + E) 
+                                                    O(V^3) 
+
+----------------------------------------------------------------------------------------
+Assignment 4 Question 2 Part B
+----------------------------------------------------------------------------------------
+This question can be solved using a modified version of the Dijkstra's algorithm.
+Generally, Dijkstra's algorithm is used to find the minimum distance to be travelled 
+from a source vertex to all the other vertex in a Graph.
+In a general case Dijkstra's algorithm is used when the edges have weight in a graph.
+The modification that has to be done would be that the question has a graph which has 
+the weights on the vertices. So instead of calculating the weight of the edge, we need 
+to calculate the weight of the vertex. The second important modification would be that 
+Dijkstra gives us the minimum distance from a source node to all the remaining
+nodes. We need to modify it to only return the minimum distance from a source vertex to 
+a target vertex.
+----------------------------------------------------------------------------------------
+ALGORITHM
+----------------------------------------------------------------------------------------
+1) Maintain 2 datasets which keeps a track of the visited and unvisited vertices.
+   In the beginning, the start vertex will be in visited set and all the others vertices will 
+   be in unvisited set.
+2) Make the distance of the start vertex as 0 and Mark the distance of all other vertices to 
+   infinity. Make the start vertex as the current
+3) Find the vertices connected to the current with edges. Calculate the distance for all 
+   the vertices by adding the weight of the vertex. 
+   If the calculated distance is less than the previous calculated distance then update the 
+   distance. If the vertex distance is changed, change the parent of the current in the path 
+   because of which the new minimum distance was calculated.
+4) All the vertices marked, make the vertex with smallest distance the current.
+   Mark the vertex and add it to the visited set and remove the vertex from unvisited set. 
+   Repeat the process from step 2.
+5) Once the unvisited dataset is empty, return the path
+
+----------------------------------------------------------------------------------------
+CalculateShortestDistance(G,source,destination):
+distance[]
+parent[]
+for v in V[G]:
+	distance[v] = infinite/∞
+	parent[v] = NULL
+distance[source]= 0
+path[] = Null
+while unvisited is not empty:
+	minimumDistance = minimum Distance of the unvisited
+	remove the minimumDistance(vertex) from unvisited
+	for every adjecent vertex of minimumDistance:
+		if distance[minimumDistance] + vertex.weight > distance[vertex]:
+			distance[vertex] = distance[minimumDistance] + vertex.weight
+			parent[vertex] = minimumDistance'
+temp = parent[destination]
+while parent is not empty:
+	add temp to path
+        temp = path[temp]
+return path
+
+----------------------------------------------------------------------------------------
+TIME COMPLEXITY
+----------------------------------------------------------------------------------------
+Time complexity for this modified version algorithm would depend on how we implement 
+the priority queue. Possible datasets are with an array which gives run time of O(V^2 + E), 
+use of binary heap gives time complexity of O((V + E)leg(V)) and using a Fibonacci heap 
+has run time of O(Vlog(V) + E).
+
+----------------------------------------------------------------------------------------
+PROOF OF CORRECTNESS
+----------------------------------------------------------------------------------------
+
+The proof of correctness is similar to that of the Dijkstra's
+algorithm which is stated in the book. Our modification that calculates the distance
+from vertex instead of the edges should not change the way Dijkstra's is Proved.
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Assignment 4 Question 3
+----------------------------------------------------------------------------------------
+This question can also be solved using a modified version of the Dijkstra's algorithm.
+Generally Dijkstra's algorithm is used to find the minimum distance to be travelled 
+from a source vertex to all the other vertex in a Graph. 
+In a general case of Dijkstra's algorithm the distance between the vertices is added.
+The modification that has to be done would be that the instead of adding the distance of
+the edge, we need to multiply it to calculate the safest path from the source to destination.
+
+----------------------------------------------------------------------------------------
+ALGORITHM
+----------------------------------------------------------------------------------------
+1) Maintain 2 datasets which keeps a track of the visited and unvisited vertices.
+   In the beginning, the start vertex will be in visited set and all the others vertices will 
+   be in unvisited set.
+2) Make the distance of the start vertex as 0 and Mark the distance of all other vertices to 
+   infinity. Make the start vertex as the current
+3) Find the vertices connected to the current with edges. Calculate the distance for all 
+   the vertices by adding the weight of the vertex. 
+   If the calculated distance is less than the previous calculated distance then update the 
+   distance. If the vertex distance is changed, change the parent of the current in the path 
+   because of which the new minimum distance was calculated.
+4) All the vertices marked, make the vertex with smallest distance the current.
+   Mark the vertex and add it to the visited set and remove the vertex from unvisited set. 
+   Repeat the process from step 2.
+5) Once the unvisited dataset is empty, return the path
+
+----------------------------------------------------------------------------------------
+CalculateShortestDistance(G,source,destination):
+distance[]
+parent[]
+for v in V[G]:
+	distance[v] = infinite/∞
+	parent[v] = NULL
+distance[source]= 1
+path[]
+while unvisited is not empty:
+	minimumDistance = minimum Distance of the unvisited
+	remove the minimumDistance(vertex) from unvisited
+	for every adjecent vertex of minimumDistance:
+		if distance[minimumDistance] * vertex.weight > distance[vertex]:
+			distance[vertex] = distance[minimumDistance] * vertex.weight
+			parent[vertex] = minimumDistance'
+temp = parent[destination]
+while parent is not empty:
+	add temp to path
+        temp = path[temp]
+return path
+
+----------------------------------------------------------------------------------------
+TIME COMPLEXITY
+----------------------------------------------------------------------------------------
+Time complexity for this modified version algorithm would depend on how we implement 
+the priority queue. Possible datasets are with an array which gives run time of O(V^2 + E), 
+use of binary heap gives time complexity of O((V + E)leg(V)) and using a Fibonacci heap 
+has run time of O(Vlog(V) + E).
+
+----------------------------------------------------------------------------------------
+PROOF OF CORRECTNESS
+----------------------------------------------------------------------------------------
+
+The proof of correctness is similar to that of the Dijkstra's
+algorithm which is stated in the book. Our modification that calculates the distance
+from vertex instead of the edges should not change the way Dijkstra's is Proved.
+----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
+Assignment 4 Question 4
+----------------------------------------------------------------------------------------
+
+We can prove that (S ∩ S', T ∪ T') and (S ∪ S', T ∩ T') are also minimum (s,t)-cuts in G by 
+the Max-flow Min-cut algorithm which states that the maximum amount of flow passing from the
+source to the sink is equal to the total weight of the edges in the minimum cut, that is the 
+smallest total weight of the edges which if removed would disconnect the source from the
+sink. Basically, the max-flow from source to sink = the min-cut necessary to separate 
+source from sink. 
+We can say that S1 and S2 are two cuts, every arc that crosses (S’ ∪ S’) crosses S1 or S2
+which mean every arc is saturated. Similarly, for S ∩ S'
+Hence for (s,t) and (s',t') cuts 
+(S ∩ S', T ∪ T') and (S ∪ S', T ∩ T') are also minimum cuts.

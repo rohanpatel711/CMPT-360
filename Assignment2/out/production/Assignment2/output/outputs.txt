@@ -1,0 +1,39 @@
+Problem: 1 Cost: 0
+Start:0 End:1|
+Time Taken: 0 minutes
+Time Taken: 0 seconds
+-----------------------
+Problem: 2 Cost: 0
+Start:0 End:1|Start:0 End:1|
+Time Taken: 0 minutes
+Time Taken: 0 seconds
+-----------------------
+Problem: 3 Cost: 0
+Start:0 End:4|Start:0 End:1|Start:0 End:4|
+Time Taken: 0 minutes
+Time Taken: 0 seconds
+-----------------------
+Problem: 4 Cost: 0
+Start:0 End:5|Start:0 End:1|Start:1 End:2|Start:0 End:5|
+Time Taken: 0 minutes
+Time Taken: 0 seconds
+-----------------------
+Problem: 5 Cost: 1
+Start:0 End:6|Start:1 End:2|Start:0 End:1|Start:1 End:3|Start:0 End:6|
+Time Taken: 0 minutes
+Time Taken: 0 seconds
+-----------------------
+Problem: 6 Cost: 3
+Start:0 End:7|Start:1 End:3|Start:3 End:4|Start:0 End:3|Start:2 End:5|Start:0 End:7|
+Time Taken: 0 minutes
+Time Taken: 1 seconds
+-----------------------
+Problem: 7 Cost: 6
+Start:0 End:8|Start:1 End:4|Start:3 End:5|Start:2 End:3|Start:3 End:6|Start:0 End:4|Start:0 End:8|
+Time Taken: 2 minutes
+Time Taken: 126 seconds
+-----------------------
+Problem: 8 Cost: 11
+Start:0 End:9|Start:1 End:4|Start:3 End:7|Start:4 End:6|Start:2 End:5|Start:0 End:4|Start:2 End:8|Start:0 End:9|
+Time Taken: 730 minutes
+Time Taken: 43826 seconds
